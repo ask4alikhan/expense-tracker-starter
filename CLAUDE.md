@@ -16,13 +16,13 @@ There is no test suite.
 
 ## Architecture
 
-React 19 SPA built with Vite 7. No routing, no backend, no additional runtime dependencies. Data lives in React state only and resets on page reload.
+React 19 SPA built with Vite 7. No routing, no backend. Only runtime dependency beyond React is recharts (for charts). Data lives in React state only and resets on page reload.
 
 **File structure:** All source files live flat in `src/` (no subdirectories).
 
 - `main.jsx` — entry point, renders `<App />` inside `<StrictMode>`
 - `App.jsx` — root component
-- `Summary.jsx`, `TransactionForm.jsx`, `TransactionList.jsx`, `ConfirmDialog.jsx` — components
+- `Summary.jsx`, `SpendingChart.jsx`, `TransactionForm.jsx`, `TransactionList.jsx`, `ConfirmDialog.jsx` — components
 - `index.css` — global/reset styles; `App.css` — component styles (no CSS modules or CSS-in-JS)
 
 **Data model:**
@@ -38,6 +38,7 @@ A transaction is `{ id, description, amount, type, category, date }`.
 
 - `App` — holds the `transactions` array state and the `categories` constant. Passes data and callbacks (`onAdd`, `onDelete`) down; the only component that calls `setTransactions`.
 - `Summary` — receives `transactions`, computes `totalIncome`, `totalExpenses`, and `balance` internally.
+- `SpendingChart` — receives `transactions` and `categories`, aggregates expenses by category, renders a recharts `BarChart` with per-category coloring. Hidden when there are no expenses.
 - `TransactionForm` — owns its own form field state (description, amount, type, category). Calls `onAdd(transaction)` with a fully-formed transaction object on submit.
 - `TransactionList` — owns its own filter state (`filterType`, `filterCategory`) and delete confirmation state (`deleteId`). Receives `transactions`, `categories`, and `onDelete` as props. Renders `ConfirmDialog` when a delete is pending.
 - `ConfirmDialog` — generic modal overlay with backdrop dismiss. Receives `message`, `onConfirm`, `onCancel` props.
