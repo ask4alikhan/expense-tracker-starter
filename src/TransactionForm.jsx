@@ -5,14 +5,23 @@ function TransactionForm({ categories, onAdd }) {
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("food");
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!description || !amount || Number(amount) <= 0) return;
+    if (!description.trim()) {
+      setError("Description is required.");
+      return;
+    }
+    if (!amount || Number(amount) <= 0) {
+      setError("Amount must be greater than zero.");
+      return;
+    }
+    setError("");
 
     onAdd({
       id: Date.now(),
-      description,
+      description: description.trim(),
       amount: Number(amount),
       type,
       category,
@@ -28,11 +37,13 @@ function TransactionForm({ categories, onAdd }) {
   return (
     <div className="add-transaction">
       <h2>Add Transaction</h2>
+      {error && <p className="form-error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Description"
           aria-label="Description"
+          required
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
@@ -40,6 +51,7 @@ function TransactionForm({ categories, onAdd }) {
           type="number"
           placeholder="Amount"
           aria-label="Amount"
+          required
           min="0.01"
           step="0.01"
           value={amount}

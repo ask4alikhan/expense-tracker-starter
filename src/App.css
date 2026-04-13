@@ -122,6 +122,12 @@
   margin-bottom: 32px;
 }
 
+.form-error {
+  color: var(--expense);
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
 .add-transaction form {
   display: flex;
   gap: 10px;
