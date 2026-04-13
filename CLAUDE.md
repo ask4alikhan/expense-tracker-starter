@@ -16,9 +16,15 @@ There is no test suite.
 
 ## Architecture
 
-This is a single-file React app (`src/App.jsx`). All state, logic, and UI live in the `App` component — there are no sub-components, no routing, and no backend. Data is held in React state only; it resets on page reload.
+React SPA with no routing and no backend. Data lives in React state only and resets on page reload.
 
-**Known intentional issues in the starter code:**
-- Bug: `amount` is stored as a string, so `reduce` concatenates instead of summing (income/expense totals are wrong)
+**Component structure:**
+
+- `App` — holds the `transactions` array state and the `categories` constant. Passes data down; the only component that calls `setTransactions`.
+- `Summary` — receives `transactions`, computes `totalIncome`, `totalExpenses`, and `balance` internally.
+- `TransactionForm` — owns its own form field state (description, amount, type, category). Calls `onAdd(transaction)` with a fully-formed transaction object on submit.
+- `TransactionList` — owns its own filter state (type, category). Receives `transactions` and `categories` as props.
+
+**Known intentional issue in the starter code:**
 - Transaction #4 ("Freelance Work") is typed as `"expense"` but categorized as `"salary"` — logically inconsistent
-- UI and code quality are intentionally rough for course exercises
+- UI is intentionally rough for course exercises
