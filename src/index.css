@@ -1,3 +1,27 @@
+:root {
+  --bg-base: #0c1220;
+  --bg-surface: #131c2e;
+  --bg-elevated: #1a2540;
+  --bg-hover: #213050;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-focus: rgba(240, 180, 41, 0.4);
+  --text-primary: #e8ecf4;
+  --text-secondary: #7a8ba8;
+  --text-muted: #4a5a74;
+  --accent: #f0b429;
+  --accent-glow: rgba(240, 180, 41, 0.15);
+  --income: #34d399;
+  --income-bg: rgba(52, 211, 153, 0.1);
+  --expense: #f87171;
+  --expense-bg: rgba(248, 113, 113, 0.1);
+  --danger: #ef4444;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.4);
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +29,46 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
-  color: #333;
+  font-family: 'Sora', sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 30% 20%, rgba(240, 180, 41, 0.04) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(52, 211, 153, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg-base);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
 }

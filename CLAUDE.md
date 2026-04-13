@@ -23,7 +23,7 @@ React 19 SPA built with Vite 7. No routing, no backend. Only runtime dependency 
 - `main.jsx` — entry point, renders `<App />` inside `<StrictMode>`
 - `App.jsx` — root component
 - `Summary.jsx`, `SpendingChart.jsx`, `TransactionForm.jsx`, `TransactionList.jsx`, `ConfirmDialog.jsx` — components
-- `index.css` — global/reset styles; `App.css` — component styles (no CSS modules or CSS-in-JS)
+- `index.css` — CSS custom properties (design tokens), reset, and body styles; `App.css` — component styles (no CSS modules or CSS-in-JS)
 
 **Data model:**
 
@@ -43,6 +43,7 @@ A transaction is `{ id, description, amount, type, category, date }`.
 - `TransactionList` — owns its own filter state (`filterType`, `filterCategory`) and delete confirmation state (`deleteId`). Receives `transactions`, `categories`, and `onDelete` as props. Renders `ConfirmDialog` when a delete is pending.
 - `ConfirmDialog` — generic modal overlay with backdrop dismiss. Receives `message`, `onConfirm`, `onCancel` props.
 
+**Styling:** Dark theme using CSS custom properties defined in `index.css` (e.g. `--bg-surface`, `--text-primary`, `--accent`, `--income`, `--expense`). Fonts loaded from Google Fonts: Fraunces (display/amounts) and Sora (body). New components should use existing CSS variables rather than hardcoding colors.
+
 **Known intentional issue in the starter code:**
 - Transaction #4 ("Freelance Work") is typed as `"expense"` but categorized as `"salary"` — logically inconsistent
-- UI is intentionally rough for course exercises
