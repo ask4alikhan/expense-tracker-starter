@@ -42,13 +42,17 @@ function TransactionList({ transactions, categories, onDelete }) {
           </tr>
         </thead>
         <tbody>
-          {filtered.map(t => (
+          {filtered.length === 0 ? (
+            <tr>
+              <td colSpan={5} className="empty-state">No transactions found.</td>
+            </tr>
+          ) : filtered.map(t => (
             <tr key={t.id}>
               <td>{t.date}</td>
               <td>{t.description}</td>
               <td>{t.category}</td>
               <td className={t.type === "income" ? "income-amount" : "expense-amount"}>
-                {t.type === "income" ? "+" : "-"}${t.amount}
+                {t.type === "income" ? "+" : "-"}${t.amount.toFixed(2)}
               </td>
               <td>
                 <button className="delete-btn" onClick={() => setDeleteId(t.id)}>Delete</button>

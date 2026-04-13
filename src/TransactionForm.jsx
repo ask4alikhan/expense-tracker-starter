@@ -8,7 +8,7 @@ function TransactionForm({ categories, onAdd }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!description || !amount) return;
+    if (!description || !amount || Number(amount) <= 0) return;
 
     onAdd({
       id: Date.now(),
@@ -32,20 +32,24 @@ function TransactionForm({ categories, onAdd }) {
         <input
           type="text"
           placeholder="Description"
+          aria-label="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
         <input
           type="number"
           placeholder="Amount"
+          aria-label="Amount"
+          min="0.01"
+          step="0.01"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
-        <select value={type} onChange={(e) => setType(e.target.value)}>
+        <select value={type} onChange={(e) => setType(e.target.value)} aria-label="Transaction type">
           <option value="income">Income</option>
           <option value="expense">Expense</option>
         </select>
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <select value={category} onChange={(e) => setCategory(e.target.value)} aria-label="Category">
           {categories.map(cat => (
             <option key={cat} value={cat}>{cat}</option>
           ))}
